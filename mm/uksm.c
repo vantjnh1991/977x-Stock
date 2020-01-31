@@ -171,7 +171,7 @@ static int is_full_zero(const void *s1, size_t len)
 #else
 static int is_full_zero(const void *s1, size_t len)
 {
-	unsigned long *src = s1;
+ 	const unsigned long *src = s1;
 	int i;
 
 	len /= sizeof(*src);
@@ -568,7 +568,7 @@ static unsigned long long uksm_sleep_times;
 
 #define UKSM_RUN_STOP	0
 #define UKSM_RUN_MERGE	1
-static unsigned int uksm_run = 1;
+static unsigned int uksm_run = 0;
 
 static DECLARE_WAIT_QUEUE_HEAD(uksm_thread_wait);
 static DEFINE_MUTEX(uksm_thread_mutex);
