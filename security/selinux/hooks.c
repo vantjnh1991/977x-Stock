@@ -1840,6 +1840,7 @@ static inline u32 signal_to_av(int sig)
 static int cred_has_capability(const struct cred *cred,
 			       int cap, int audit, bool initns)
 {
+#ifdef CONFIG_AUDIT
 	struct common_audit_data ad;
 	struct av_decision avd;
 	u16 sclass;
@@ -3218,6 +3219,7 @@ static noinline int audit_inode_permission(struct inode *inode,
 			    audited, denied, result, &ad, flags);
 	if (rc)
 		return rc;
+#endif
 	return 0;
 }
 
