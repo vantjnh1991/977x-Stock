@@ -23,6 +23,7 @@
 #include <sound/pcm_params.h>
 #include <sound/soc.h>
 #include <sound/tlv.h>
+#include "moro_sound.h"
 
 #include <linux/mfd/madera/core.h>
 #include <linux/mfd/madera/registers.h>
@@ -1973,6 +1974,9 @@ static int cs47l92_codec_probe(struct snd_soc_codec *codec)
 	unsigned int val = 0;
 
 	madera->dapm = snd_soc_codec_get_dapm(codec);
+	moro_sound_hook_madera_pcm_probe(madera->regmap);
+
+	cs47l92->core.madera->dapm = snd_soc_codec_get_dapm(codec);
 
 	ret = madera_init_inputs(codec,
 				 cs47l92_dmic_inputs,
