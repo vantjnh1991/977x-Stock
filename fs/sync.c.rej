@@ -1,0 +1,16 @@
+diff a/fs/sync.c b/fs/sync.c	(rejected hunks)
+@@ -463,9 +474,13 @@ EXPORT_SYMBOL(vfs_fsync);
+ 
+ static int do_fsync(unsigned int fd, int datasync)
+ {
+-	struct fd f = fdget(fd);
++	struct fd f;
+ 	int ret = -EBADF;
++	
++	if (!fsync_enabled)
++		return 0;
+ 
++	f = fdget(fd);
+ 	if (f.file) {
+ 		ret = vfs_fsync(f.file, datasync);
+ 		fdput(f);
